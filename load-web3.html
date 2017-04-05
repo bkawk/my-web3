@@ -1,0 +1,48 @@
+<link rel="import" href="../polymer/polymer.html">
+<script src="../web3/dist/web3.min.js"></script>
+<!--
+`load-web3`
+
+
+@demo demo/index.html
+-->
+
+<dom-module id="load-web3">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+      !!!{{web3Obj}}!!!
+  </template>
+
+
+  <script>
+    class loadWeb3 extends Polymer.Element {
+      static get is() { return 'load-web3'; }
+      static get properties() {
+        return {
+          web3Obj: {
+            type: Object
+          },
+          rpc:{
+            type: String,
+            value: "http://localhost:8545"
+          }
+
+        };
+      }
+
+      connectedCallback(){
+        super.connectedCallback();
+        var web3 = new Web3();
+        web3.setProvider(this.rpc);
+        this.web3Obj = web3;
+        console.log(this.web3Obj)
+      }
+
+  } window.customElements.define(loadWeb3.is, loadWeb3);
+  </script>
+
+</dom-module>
