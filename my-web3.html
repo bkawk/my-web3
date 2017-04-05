@@ -15,12 +15,11 @@
       }
     </style>
     
-    <template is="dom-if" if={{isEnabled}}>
+    <template is="dom-if" if={{loadWeb3}}>
       <load-web3 
-        web3Obj="{{web3Obj}}">
+        web3-obj="{{web3Obj}}">
       </load-web3>   
     </template>
-  ---{{web3Obj}}---
   </template>
 
 
@@ -30,13 +29,13 @@
       static get is() { return 'my-web3'; }
       static get properties() {
         return {
-          isEnabled: {
+          loadWeb3: {
             type: Boolean,
             value: false,
           },
           web3Obj:{
             type: Object,
-            observer: '_pageChanged',
+            observer: '_objectChanged',
           }
         };
       }
@@ -51,20 +50,17 @@
       }
 
       _load(){
-        console.log('Load')
-        var resolvedPageUrl = this.resolveUrl('load-web3.html');
+        var lazyLoadUrl = this.resolveUrl('load-web3.html');
         Polymer.importHref(
-          resolvedPageUrl,
+          lazyLoadUrl,
           null,
           this._loaded(),
           true);
       }
       _loaded() {
-        console.log('Loaded')
-        this.isEnabled = true;
+        this.loadWeb3 = true;
       }
-      _pageChanged(){
-        console.log('Finished')
+      _objectChanged(){
         console.log(this.web3Obj)
       }
 

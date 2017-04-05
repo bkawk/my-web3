@@ -14,7 +14,6 @@
         display: block;
       }
     </style>
-      !!!{{web3Obj}}!!!
   </template>
 
 
@@ -24,7 +23,8 @@
       static get properties() {
         return {
           web3Obj: {
-            type: Object
+            type: Object,
+            notify: true
           },
           rpc:{
             type: String,
@@ -36,10 +36,8 @@
 
       connectedCallback(){
         super.connectedCallback();
-        var web3 = new Web3();
-        web3.setProvider(this.rpc);
-        this.web3Obj = web3;
-        console.log(this.web3Obj)
+        this.web3Obj = new Web3();
+        this.web3Obj.setProvider(this.rpc);
       }
 
   } window.customElements.define(loadWeb3.is, loadWeb3);
