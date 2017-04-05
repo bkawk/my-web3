@@ -26,9 +26,8 @@
             type: Object,
             notify: true
           },
-          rpc:{
+          web3Rpc:{
             type: String,
-            value: "http://localhost:8545"
           }
 
         };
@@ -37,7 +36,7 @@
       connectedCallback(){
         super.connectedCallback();
         this.web3Obj = new Web3();
-        this.web3Obj.setProvider(this.rpc);
+        this.web3Obj.setProvider(this.web3Rpc);
       }
 
   } window.customElements.define(loadWeb3.is, loadWeb3);

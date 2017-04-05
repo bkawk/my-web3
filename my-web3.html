@@ -17,8 +17,9 @@
     
     <template is="dom-if" if={{loadWeb3}}>
       <load-web3 
-        web3-obj="{{web3Obj}}">
-      </load-web3>   
+        web3-obj="{{web3Obj}}" web3-rpc="[[web3Rpcj]]">
+      </load-web3>  
+      {{ignoreEnvironment}}
     </template>
   </template>
 
@@ -36,6 +37,14 @@
           web3Obj:{
             type: Object,
             observer: '_objectChanged',
+          },
+          web3Rpc:{
+            type: String,
+            value: "http://localhost:8545"
+          },
+          ignoreEnvironment:{
+            type: Boolean,
+            value: false
           }
         };
       }
@@ -45,7 +54,11 @@
         if (typeof web3 !== 'undefined') {
           this._loaded();
         } else {
-          this._load();
+          if(this.ignoreEnvironment){
+            this._loaded();
+          } else {
+            this._load();
+          }
         }
       }
 
