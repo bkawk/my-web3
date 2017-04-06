@@ -17,9 +17,9 @@
     
     <template is="dom-if" if={{loadWeb3}}>
       <load-web3 
-        web3-obj="{{web3Obj}}" web3-rpc="[[web3Rpcj]]">
+        web3-obj="{{web3Obj}}" 
+        web3-rpc="[[web3Rpcj]]">
       </load-web3>  
-      {{ignoreEnvironment}}
     </template>
   </template>
 
@@ -52,16 +52,15 @@
       connectedCallback(){
         super.connectedCallback();
         if (typeof web3 !== 'undefined') {
-          this._loaded();
-        } else {
           if(this.ignoreEnvironment){
-            this._loaded();
-          } else {
             this._load();
+          } else {
+            this._loaded();
           }
+        } else {
+            this._load();
         }
       }
-
       _load(){
         var lazyLoadUrl = this.resolveUrl('load-web3.html');
         Polymer.importHref(
